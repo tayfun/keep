@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+    app:
+        build: .
+        ports:
+            - "80:80"
+        environment:
+            - PROJECT_NAME
+            - DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings_dev
+        volumes:
+            - ".:/app"

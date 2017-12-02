@@ -1,0 +1,9 @@
+# ECS CLI only supports version 2 of docker-compose files and docker images URLs
+# must be supplied, ie. they cannot be built dynamically and pushed automatically.
+version: "2"
+
+services:
+    app:
+        image: 895985625468.dkr.ecr.eu-west-1.amazonaws.com/keep/app
+        environment:
+            - DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings_prod
