@@ -8,7 +8,7 @@ from .models import Note
 class NoteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Note
-        fields = ('word', 'definition', 'context', 'language')
+        fields = ('id', 'word', 'definition', 'context', 'language')
 
 
 class NoteViewSet(viewsets.ModelViewSet):
