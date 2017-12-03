@@ -8,4 +8,5 @@ class Note(models.Model):
     definition = models.TextField()
     context = models.TextField()
     language = models.CharField(max_length=7, choices=LANGUAGES)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        User, related_name='notes', on_delete=models.CASCADE)

@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from rest_framework import permissions
+
 
 from .models import Note
 
@@ -13,22 +14,15 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+    permission_classes = (permissions.IsAuthenticated,)
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    def get_queryset(self):
+        return self.queryset.filter(owner=self.request.user)
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 router.register(r'notes', NoteViewSet)
