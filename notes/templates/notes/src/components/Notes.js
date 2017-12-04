@@ -1,7 +1,6 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-//import { Link } from 'react-router';
 import Nav from './Nav';
-import { getNotesData } from '../utils/notes-api.js';
 
 
 class Notes extends Component {
@@ -11,8 +10,13 @@ class Notes extends Component {
   }
 
   getNotes() {
-    getNotesData().then((notes) => {
-      this.setState({notes});
+    axios.get(this.props.endpoint).then(
+      (response) => {
+        let notes = response.data;
+        this.setState({notes});
+      }
+    ).catch((error) => {
+      // Not 200, show login page.
     });
   }
 
@@ -21,6 +25,7 @@ class Notes extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { notes } = this.state;
     return (
       <div>
@@ -45,6 +50,10 @@ class Notes extends Component {
       </div>
     );
   }
+}
+
+Notes.defaultProps = {
+  endpoint: '/notes'
 }
 
 export default Notes;

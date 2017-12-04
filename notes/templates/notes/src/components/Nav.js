@@ -16,7 +16,7 @@ class Nav extends Component {
             <button className="btn btn-info log">Log In</button>
           </li>
           <li>
-            <button className="btn btn-info log">Log In</button>
+            <button className="btn btn-info log">Log Out</button>
           </li>
         </ul>
       </nav>
