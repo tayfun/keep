@@ -1,3 +1,10 @@
+import json
+
+from django.contrib.auth import authenticate, login
+# TODO: Remove once Express proxying is turned off.
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from rest_framework import routers, serializers, viewsets
 from rest_framework import permissions
 
@@ -26,3 +33,17 @@ class NoteViewSet(viewsets.ModelViewSet):
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'notes', NoteViewSet)
+
+
+@require_POST
+@csrf_exempt
+def login_api(request):
+    post_dict = json.loads(request.body)
+    user = authenticate(**post_dict)
+    if not user:
+        return JsonResponse(
+            {'message': 'Username of password incorrect'},
+            status=400
+        )
+    login(request, user)
+    return JsonResponse({'message': 'Success'})

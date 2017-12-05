@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from notes.views import router
+from notes.views import login_api, router
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/login/', login_api),
+    path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('admin/', admin.site.urls),
     path('', include('django.contrib.auth.urls')),
