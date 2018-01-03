@@ -28,22 +28,8 @@ class Login extends Component {
     axios.post(this.props.endpoint, this.state).then((response) => {
         this.setState({logged_in: true})
       }).catch((error) => {
-        alert(error);
+        alert('Wrong username or password.');
       });
-    /*
-    fetch(this.props.endpoint, {
-      headers: {
-        Accept: 'application/json',
-        'Content-type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(this.state)
-    }).then((response) => {
-        this.setState({logged_in: true})
-      }).catch((error) => {
-        alert(error);
-      });
-      */
   }
 
   render() {

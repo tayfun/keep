@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -13,7 +13,7 @@ class Root extends Component {
     return (
       <BrowserRouter>
       <div className="container">
-          <Route path="/" component={Notes}/>
+          <Route path="/notes" component={Notes}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
       </div>

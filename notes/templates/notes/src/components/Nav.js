@@ -13,9 +13,6 @@ class Nav extends Component {
         </div>
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <button className="btn btn-info log">Log In</button>
-          </li>
-          <li>
             <button className="btn btn-info log">Log Out</button>
           </li>
         </ul>

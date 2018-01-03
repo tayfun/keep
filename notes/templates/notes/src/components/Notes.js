@@ -37,8 +37,6 @@ class Notes extends Component {
       console.log(error);
       this.setState({logged_in: false});
       let csrftoken = this.getCookie('csrftoken');
-      console.log('csrfotken')
-      console.log(csrftoken);
       if (csrftoken) {
         axios.defaults.headers.post['X-CSRFToken'] = csrftoken;
       }
@@ -59,7 +57,6 @@ class Notes extends Component {
         <Nav />
         <h3 className="text-center">Your Notes</h3>
         <hr/>
-
         { 
           notes.map((note, index) => (
               <div className="col-sm-6" key={index}>
