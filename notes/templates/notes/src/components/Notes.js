@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Nav from './Nav';
+import NotesInLanguage from './NotesInLanguage';
 
 
 class Notes extends Component {
@@ -52,25 +53,30 @@ class Notes extends Component {
       return <Redirect to="/login"/>
     }
     const { notes } = this.state;
+    let notesInLanguage = {};
+    for (var note of notes) {
+      if (!notesInLanguage[note.language]) {
+        notesInLanguage[note.language] = [note]
+      } else {
+        notesInLanguage[note.language].push(note)
+      }
+    }
+    let notesInLanguageList = [];
+    Object.entries(notesInLanguage).forEach(
+      ([language, notes]) => {
+        notesInLanguageList.push(
+          <NotesInLanguage key={language} language={language} notes={notes} />
+        )
+      }
+    )
     return (
       <div>
         <Nav />
         <h3 className="text-center">Your Notes</h3>
         <hr/>
-        { 
-          notes.map((note, index) => (
-              <div className="col-sm-6" key={index}>
-                <div className="panel panel-primary">
-                  <div className="panel-heading">
-                    <h3 className="panel-title"> <span className="btn">#{ note.id }</span></h3>
-                  </div>
-                  <div className="panel-body">
-                    <p> { note.word } </p>
-                  </div>
-                </div>
-              </div>
-          ))
-        }
+        <div id="notes">
+        { notesInLanguageList }
+        </div>
       </div>
     );
   }
