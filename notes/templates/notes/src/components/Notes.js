@@ -125,8 +125,6 @@ class Notes extends Component {
         </div>
 
         <div className="your-notes">
-          <h3 className="text-center">Your Notes</h3>
-          <hr/>
           <div id="notes">
           { notesInLanguageList }
           </div>

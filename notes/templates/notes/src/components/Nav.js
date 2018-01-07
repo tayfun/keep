@@ -7,7 +7,7 @@ class Nav extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default justify-content-end">
         <Link to="/logout" className="btn btn-primary">Log out</Link>
       </nav>
     )

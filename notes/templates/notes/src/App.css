@@ -3,14 +3,8 @@
     margin: 5px 10px 0 0;
 }
 
-.note {
-    position: relative;
-}
-
-.note .note-field {
-    border: 1px solid #ccc;
-    background-color: #eee;
-    padding: 1em;
+.note-field {
+  position: relative;
 }
 
 .note-field input {
@@ -57,4 +51,16 @@
   border: 2px solid #ccc;
   padding: 2em 1em;
   margin: 1em 0;
+}
+
+.word {
+  width: 20%;
+}
+
+.definition {
+  width: 30%;
+}
+
+.context {
+  width: 50%;
 }

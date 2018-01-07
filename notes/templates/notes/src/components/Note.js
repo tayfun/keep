@@ -71,8 +71,8 @@ class Note extends Component {
 
   render() {
     return (
-      <div className="row note mb-sm-2">
-        <div className="col-2 note-field" onDoubleClick={this.edit} >
+      <tr className="note">
+        <td className="note-field" onDoubleClick={this.edit} >
           <span>{ this.state.word }</span>
           <input
             name="word"
@@ -80,8 +80,8 @@ class Note extends Component {
             onChange={ this.onChange }
             onBlur={ this.handleSubmit }
           />
-        </div>
-        <div className="col-5 note-field" onDoubleClick={ this.edit } >
+        </td>
+        <td className="note-field" onDoubleClick={ this.edit } >
           <span>{ this.state.definition }</span>
           <input
             name="definition"
@@ -89,8 +89,8 @@ class Note extends Component {
             onChange={ this.onChange }
             onBlur={ this.handleSubmit }
           />
-        </div>
-        <div className="col-5 note-field" onDoubleClick={ this.edit } >
+        </td>
+        <td className="note-field" onDoubleClick={ this.edit } >
           <span>{ this.state.context }</span>
           <input
             name="context"
@@ -98,11 +98,9 @@ class Note extends Component {
             onChange={ this.onChange }
             onBlur={ this.handleSubmit }
           />
-        </div>
-        <div className="note-delete" >
-          <button type="button" className="btn btn-danger" onClick={ this.deleteNote }>X</button>
-        </div>
-      </div>
+          <button type="button" className="btn btn-danger note-delete" onClick={ this.deleteNote }>X</button>
+        </td>
+      </tr>
     );
   }
 }
