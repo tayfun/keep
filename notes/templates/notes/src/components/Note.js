@@ -37,6 +37,8 @@ class Note extends Component {
 
   edit(event) {
     this.toggleEditing(event.currentTarget);
+    // Focus the element so we know when it is blurred.
+    event.currentTarget.getElementsByClassName('editable')[0].focus();
   }
 
   onChange(event) {
@@ -75,6 +77,7 @@ class Note extends Component {
         <td className="note-field" onDoubleClick={this.edit} >
           <span>{ this.state.word }</span>
           <input
+            className="editable"
             name="word"
             value={ this.state.word }
             onChange={ this.onChange }
@@ -83,7 +86,8 @@ class Note extends Component {
         </td>
         <td className="note-field" onDoubleClick={ this.edit } >
           <span>{ this.state.definition }</span>
-          <input
+          <textarea
+            className="editable"
             name="definition"
             value={ this.state.definition }
             onChange={ this.onChange }
@@ -92,7 +96,8 @@ class Note extends Component {
         </td>
         <td className="note-field" onDoubleClick={ this.edit } >
           <span>{ this.state.context }</span>
-          <input
+          <textarea
+            className="editable"
             name="context"
             value={ this.state.context }
             onChange={ this.onChange }
