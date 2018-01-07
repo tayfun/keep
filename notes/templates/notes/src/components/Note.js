@@ -71,7 +71,7 @@ class Note extends Component {
 
   render() {
     return (
-      <div className="row note">
+      <div className="row note mb-sm-2">
         <div className="col-2 note-field" onDoubleClick={this.edit} >
           <span>{ this.state.word }</span>
           <input

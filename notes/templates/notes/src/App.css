@@ -4,7 +4,6 @@
 }
 
 .note {
-    margin: 1em;
     position: relative;
 }
 
@@ -48,4 +47,14 @@
 
 .note-delete:hover {
   opacity: 1;
+}
+
+.form-control {
+  width: 100% !important;
+}
+
+.add-note, .your-notes {
+  border: 2px solid #ccc;
+  padding: 2em 1em;
+  margin: 1em 0;
 }

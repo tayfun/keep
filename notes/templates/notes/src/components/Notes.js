@@ -116,16 +116,20 @@ class Notes extends Component {
     return (
       <div>
         <Nav />
-        <h3 className="text-center">Add Note</h3>
-        <hr/>
-        <div id='create'>
-          <NewNote onSubmit={ this.createNewNote.bind(this) } />
+        <div className="add-note">
+          <h3 className="text-center">Add Note</h3>
+          <hr/>
+          <div id='create'>
+            <NewNote onSubmit={ this.createNewNote.bind(this) } />
+          </div>
         </div>
 
-        <h3 className="text-center">Your Notes</h3>
-        <hr/>
-        <div id="notes">
-        { notesInLanguageList }
+        <div className="your-notes">
+          <h3 className="text-center">Your Notes</h3>
+          <hr/>
+          <div id="notes">
+          { notesInLanguageList }
+          </div>
         </div>
       </div>
     );
