@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.css';
+import { Link } from 'react-router-dom';
 
 
 class Nav extends Component {
@@ -8,14 +8,7 @@ class Nav extends Component {
   render() {
     return (
       <nav className="navbar navbar-default">
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Notes</Link>
-        </div>
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-            <button className="btn btn-info log">Log Out</button>
-          </li>
-        </ul>
+        <Link to="/logout" className="btn btn-primary">Log out</Link>
       </nav>
     )
   }

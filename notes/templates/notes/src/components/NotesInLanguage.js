@@ -7,9 +7,9 @@ class NotesInLanguage extends Component {
     return (
       <div id={this.props.language}>
         <h3 className="text-center">{this.props.language}</h3>
-        <div id="notesInLanguage">
+        <div className="notesInLanguage container">
         { 
-          this.props.notes.map((note) => <Note key={note.id} note={note} /> )
+          this.props.notes.map((note) => <Note key={note.id} note={note} deleteNote={ this.props.deleteNote } /> )
         }
         </div>
       </div>

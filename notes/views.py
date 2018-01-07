@@ -7,7 +7,9 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from rest_framework import routers, serializers, viewsets
 from rest_framework import permissions
-
+from rest_framework.authentication import (
+    SessionAuthentication, BasicAuthentication
+)
 
 from .models import Note
 
@@ -18,16 +20,33 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'word', 'definition', 'context', 'language')
 
 
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    """
+    FIXME: Remove once you stop using Express proxy.
+    """
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+
+
 class NoteViewSet(viewsets.ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
     permission_classes = (permissions.IsAuthenticated,)
+    # FIXME: Remove once you stop using Express proxy.
+    authentication_classes = (
+        CsrfExemptSessionAuthentication, BasicAuthentication
+    )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
     def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
+        return self.queryset.filter(
+            owner=self.request.user
+        ).order_by(
+            '-updated_at'
+        )
 
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -42,7 +61,7 @@ def login_api(request):
     user = authenticate(**post_dict)
     if not user:
         return JsonResponse(
-            {'message': 'Username of password incorrect'},
+            {'message': 'Username or password incorrect.'},
             status=400
         )
     login(request, user)

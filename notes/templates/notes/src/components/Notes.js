@@ -3,11 +3,20 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Nav from './Nav';
 import NotesInLanguage from './NotesInLanguage';
+import NewNote from './NewNote';
 
 
 class Notes extends Component {
+  static defaultProps = {
+    endpoint: '/api/notes/'
+  }
+
   constructor() {
     super();
+    let csrftoken = this.getCookie('csrftoken');
+    if (csrftoken) {
+      axios.defaults.headers.post['X-CSRFToken'] = csrftoken;
+    }
     this.state = { notes: [], logged_in: true };
   }
 
@@ -37,15 +46,50 @@ class Notes extends Component {
       // Not 200, show login page.
       console.log(error);
       this.setState({logged_in: false});
-      let csrftoken = this.getCookie('csrftoken');
-      if (csrftoken) {
-        axios.defaults.headers.post['X-CSRFToken'] = csrftoken;
-      }
     });
   }
 
   componentDidMount() {
     this.getNotes();
+  }
+
+  createNewNote(event) {
+    let form_data = new FormData(event.target);
+    let payload = {};
+    form_data.forEach(function(value, key) {
+      payload[key] = value;
+    });
+    axios.post(this.props.endpoint, payload).then(
+      (response) => {
+        alert('Note created.');
+
+        this.setState(prevState => ({
+          notes: [response.data, ...prevState.notes]
+        }));
+        // Reset the form after successful creation.
+        event.target.reset();
+        let languageDiv = document.getElementById(response.data.language);
+        languageDiv.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    ).catch((error) => {
+        alert('Error: Note failed.');
+    });
+    event.preventDefault();
+    // Events are normally reused for performance reasons by ReactJS.
+    event.persist();
+  }
+
+  deleteNote(event, noteId) {
+    axios.delete(this.props.endpoint + noteId + '/').then(
+      (response) => {
+        alert('Success: Note deleted.');
+        event.target.parentNode.parentNode.remove();
+      }
+    ).catch((error) => {
+      alert('Error: Note could not be deleted.');
+    });
+    event.preventDefault();
+    event.persist();
   }
 
   render() {
@@ -65,13 +109,19 @@ class Notes extends Component {
     Object.entries(notesInLanguage).forEach(
       ([language, notes]) => {
         notesInLanguageList.push(
-          <NotesInLanguage key={language} language={language} notes={notes} />
+          <NotesInLanguage key={ language } language={ language } notes={ notes } deleteNote={ this.deleteNote.bind(this) } />
         )
       }
     )
     return (
       <div>
         <Nav />
+        <h3 className="text-center">Add Note</h3>
+        <hr/>
+        <div id='create'>
+          <NewNote onSubmit={ this.createNewNote.bind(this) } />
+        </div>
+
         <h3 className="text-center">Your Notes</h3>
         <hr/>
         <div id="notes">
@@ -80,10 +130,6 @@ class Notes extends Component {
       </div>
     );
   }
-}
-
-Notes.defaultProps = {
-  endpoint: '/api/notes'
 }
 
 export default Notes;

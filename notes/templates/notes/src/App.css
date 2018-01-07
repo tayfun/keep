@@ -2,3 +2,50 @@
 .log {
     margin: 5px 10px 0 0;
 }
+
+.note {
+    margin: 1em;
+    position: relative;
+}
+
+.note .note-field {
+    border: 1px solid #ccc;
+    background-color: #eee;
+    padding: 1em;
+}
+
+.note-field input {
+ display: none;
+}
+
+.note-field.editing input {
+  display: inherit;
+}
+
+.note-field span {
+  display: inherit;
+}
+
+.note-field.editing span {
+  display: none;
+}
+
+.new-note {
+    margin: auto;
+}
+
+.note-delete {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  opacity: 0.4;
+}
+
+.note:hover .note-delete {
+  display: inline;
+}
+
+.note-delete:hover {
+  opacity: 1;
+}

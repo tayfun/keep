@@ -5,18 +5,21 @@ import './index.css';
 import Notes from './components/Notes';
 import Login from './components/Login';
 import Logout from './components/Logout';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, Redirect, BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
 class Root extends Component {
   render() {
     return (
       <BrowserRouter>
-      <div className="container">
+        <div className="container">
+          <Route exact path="/" render={() => (
+            <Redirect to="/notes"/>
+          )} />
           <Route path="/notes" component={Notes}/>
           <Route path="/login" component={Login}/>
           <Route path="/logout" component={Logout}/>
-      </div>
+        </div>
       </BrowserRouter>
     )
   }
