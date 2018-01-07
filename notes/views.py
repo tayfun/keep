@@ -19,6 +19,14 @@ class NoteSerializer(serializers.HyperlinkedModelSerializer):
         model = Note
         fields = ('id', 'word', 'definition', 'context', 'language')
 
+    def to_representation(self, obj):
+        """
+        Override serialization of Note objects to add language.
+        """
+        to_return = super().to_representation(obj)
+        to_return['language'] = obj.get_language_display()
+        return to_return
+
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     """
