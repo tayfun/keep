@@ -64,10 +64,9 @@ class Notes extends Component {
     axios.post(this.props.endpoint, payload).then(
       (response) => {
         this.props.alert.success('Note created.');
-
-        this.setState(prevState => ({
-          notes: [response.data, ...prevState.notes]
-        }));
+        this.setState({
+          notes: [response.data, ...this.state.notes]
+        });
         // Reset the form after successful creation.
         event.target.reset();
         let languageDiv = document.getElementById(response.data.language);
@@ -85,7 +84,15 @@ class Notes extends Component {
     axios.delete(this.props.endpoint + noteId + '/').then(
       (response) => {
         this.props.alert.success('Success: Note deleted.');
-        event.target.parentNode.parentNode.remove();
+        this.setState({
+          notes: this.state.notes.filter((note) => {
+            if (note.id === noteId) {
+              return false;
+            } else {
+              return true;
+            }
+          })
+        });
       }
     ).catch((error) => {
       this.props.alert.error(error.message);
