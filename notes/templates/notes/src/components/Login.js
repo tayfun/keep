@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { withAlert } from 'react-alert'
@@ -12,10 +11,6 @@ class Login extends Component {
       username: '',
       password: ''
     };
-  }
-
-  validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
   }
 
   handleChange = event => {
@@ -39,28 +34,14 @@ class Login extends Component {
     }
     return (
       <div id='login'>
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="username" bsSize="large">
-            <ControlLabel>username</ControlLabel>
-            <FormControl
-              autoFocus
-              value={this.state.username}
-              onChange={this.handleChange}/>
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"/>
-          </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit">
-            Login
-          </Button>
+        <form onSubmit={this.handleSubmit} className="form-group">
+          <div className="form-group">
+            <input type="text" className="form-control" id="username" aria-describedby="username" placeholder="Username" value={this.state.username} onChange={this.handleChange} required />
+          </div>
+          <div className="form-group">
+            <input type="password" className="form-control" id="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
+          </div>
+          <button type="submit" className="btn btn-primary">Login</button>
         </form>
       </div>
     )

@@ -74,3 +74,9 @@
   background-color: #FCE47E;
   border: 2px dotted #ccc;
 }
+
+#login form {
+  border: 1px solid #ccc;
+  padding: 2em;
+  margin: 2em;
+}
