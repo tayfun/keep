@@ -63,9 +63,9 @@ class Note extends Component {
         this.props.endpoint + this.state.id + '/', 
         this.state
       ).then((response) => {
-          alert('Success: Note updated');
+          this.props.alert.success('Success: Note updated');
       }).catch((error) => {
-        alert('There was a problem: Note not updated.');
+        this.props.alert.error(error.message);
       });
       this.setState({dirty: false});
     }

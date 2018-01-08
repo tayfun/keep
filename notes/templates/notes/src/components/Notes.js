@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { withAlert } from 'react-alert'
+
 import Nav from './Nav';
 import NotesInLanguage from './NotesInLanguage';
 import NewNote from './NewNote';
@@ -44,7 +46,7 @@ class Notes extends Component {
       }
     ).catch((error) => {
       // Not 200, show login page.
-      console.log(error);
+      this.props.alert.error(error.message);
       this.setState({logged_in: false});
     });
   }
@@ -61,7 +63,7 @@ class Notes extends Component {
     });
     axios.post(this.props.endpoint, payload).then(
       (response) => {
-        alert('Note created.');
+        this.props.alert.success('Note created.');
 
         this.setState(prevState => ({
           notes: [response.data, ...prevState.notes]
@@ -72,7 +74,7 @@ class Notes extends Component {
         languageDiv.scrollIntoView({behavior: 'smooth', block: 'start'});
       }
     ).catch((error) => {
-        alert('Error: Note failed.');
+        this.props.alert.error(error.message);
     });
     event.preventDefault();
     // Events are normally reused for performance reasons by ReactJS.
@@ -82,11 +84,11 @@ class Notes extends Component {
   deleteNote(event, noteId) {
     axios.delete(this.props.endpoint + noteId + '/').then(
       (response) => {
-        alert('Success: Note deleted.');
+        this.props.alert.success('Success: Note deleted.');
         event.target.parentNode.parentNode.remove();
       }
     ).catch((error) => {
-      alert('Error: Note could not be deleted.');
+      this.props.alert.error(error.message);
     });
     event.preventDefault();
     event.persist();
@@ -134,4 +136,4 @@ class Notes extends Component {
   }
 }
 
-export default Notes;
+export default withAlert(Notes);

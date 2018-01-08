@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { withAlert } from 'react-alert'
 
 
 class Login extends Component {
@@ -28,7 +29,7 @@ class Login extends Component {
     axios.post(this.props.endpoint, this.state).then((response) => {
         this.setState({logged_in: true})
       }).catch((error) => {
-        alert('Wrong username or password.');
+        this.props.alert.error(error.message);
       });
   }
 
@@ -70,4 +71,4 @@ Login.defaultProps = {
   endpoint: '/api/login/'
 }
 
-export default Login;
+export default withAlert(Login);
