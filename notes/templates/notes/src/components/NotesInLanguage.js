@@ -17,7 +17,7 @@ class NotesInLanguage extends Component {
           </thead>
           <tbody>
             { 
-              this.props.notes.map((note) => <Note key={note.id} note={note} deleteNote={ this.props.deleteNote } /> )
+              this.props.notes.map((note) => <Note key={note.id} note={note} deleteNote={ this.props.deleteNote } alert={ this.props.alert } /> )
             }
           </tbody>
         </table>

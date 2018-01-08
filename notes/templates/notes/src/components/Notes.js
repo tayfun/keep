@@ -118,7 +118,7 @@ class Notes extends Component {
     Object.entries(notesInLanguage).forEach(
       ([language, notes]) => {
         notesInLanguageList.push(
-          <NotesInLanguage key={ language } language={ language } notes={ notes } deleteNote={ this.deleteNote.bind(this) } />
+          <NotesInLanguage key={ language } language={ language } notes={ notes } deleteNote={ this.deleteNote.bind(this) } alert={ this.props.alert } />
         )
       }
     )
