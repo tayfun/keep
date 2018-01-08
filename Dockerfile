@@ -7,9 +7,8 @@ RUN apk add --no-cache --update \
         py3-psycopg2 \
         nginx && rm -rf /var/cache/apk/*
 WORKDIR /app
-
 COPY . .
-COPY conf/nginx-site.conf /etc/nginx/conf.d/
+RUN ln -s /app/conf/nginx-site.conf /etc/nginx/conf.d/
 RUN rm /etc/nginx/conf.d/default.conf
 RUN chmod +x conf/wrapper_script.sh
 RUN mkdir /run/nginx
