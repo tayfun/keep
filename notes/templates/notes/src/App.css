@@ -69,3 +69,8 @@
   width: 100%;
   height: 100%;
 }
+
+.note-field:hover {
+  background-color: #FCE47E;
+  border: 2px dotted #ccc;
+}

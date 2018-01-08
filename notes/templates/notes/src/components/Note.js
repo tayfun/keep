@@ -74,7 +74,7 @@ class Note extends Component {
   render() {
     return (
       <tr className="note">
-        <td className="note-field" onDoubleClick={this.edit} >
+        <td className="note-field" onClick={this.edit} >
           <span>{ this.state.word }</span>
           <input
             className="editable"
@@ -84,7 +84,7 @@ class Note extends Component {
             onBlur={ this.handleSubmit }
           />
         </td>
-        <td className="note-field" onDoubleClick={ this.edit } >
+        <td className="note-field" onClick={ this.edit } >
           <span>{ this.state.definition }</span>
           <textarea
             className="editable"
@@ -94,7 +94,7 @@ class Note extends Component {
             onBlur={ this.handleSubmit }
           />
         </td>
-        <td className="note-field" onDoubleClick={ this.edit } >
+        <td className="note-field" onClick={ this.edit } >
           <span>{ this.state.context }</span>
           <textarea
             className="editable"
