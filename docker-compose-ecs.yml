@@ -6,4 +6,7 @@ services:
     app:
         image: 895985625468.dkr.ecr.eu-west-1.amazonaws.com/keep/app
         environment:
+            - PROJECT_NAME
             - DJANGO_SETTINGS_MODULE=$PROJECT_NAME.settings_prod
+        ports:
+            - "80:80"
